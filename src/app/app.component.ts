@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -6,7 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  public webregControl = new FormControl(null, Validators.required);
+
   lat = 51.678418;
   lng = 7.809007;
+
+  public onSubmit(): boolean {
+    return false;
+  }
 }

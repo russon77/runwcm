@@ -1,11 +1,24 @@
 import { browser, by, element } from 'protractor';
 
 export class AppPage {
-  navigateTo() {
+  static navigateTo() {
     return browser.get('/');
   }
+}
 
-  getParagraphText() {
+export class AppBrand {
+  static getBrandText() {
     return element(by.css('app-root h1')).getText();
+  }
+}
+
+export class AppFields {
+  static webreg = {
+    disabled() {
+      return element(by.css('app-root button[type=submit]')).getAttribute('disabled');
+    },
+    edit(text: string) {
+      return element(by.css('app-root #webregdata')).sendKeys(text);
+    }
   }
 }
