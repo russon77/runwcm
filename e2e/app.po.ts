@@ -36,6 +36,19 @@ export class AppFields {
 }
 
 export class AppData {
+  static day = {
+    get() {
+      return element(by.css('app-root .schedule-day')).getText();
+    },
+    edit(day: string) {
+      return element(by.css(`app-root .schedule-${day}`)).click();
+    }
+  };
+
+  static schedule() {
+    return element.all(by.css('app-root .schedule-data li')).map(ef => ef.getText());
+  }
+
   static available() {
     return element(by.css('app-root .schedule-content')).isPresent();
   }

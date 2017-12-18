@@ -3,7 +3,7 @@ interface ICourse {
   location: string;
 }
 
-interface ISchedule {
+export interface ISchedule {
   monday: ICourse[];
   tuesday: ICourse[];
   wednesday: ICourse[];

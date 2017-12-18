@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { parseWebregData } from './utils';
+import { ISchedule, parseWebregData } from './utils';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,8 @@ import { parseWebregData } from './utils';
 export class AppComponent {
   public webregControl = new FormControl(null, Validators.required);
   public hasError = false;
-  public schedule: any = false;
+  public schedule: any = null;
+  public selectedDay: keyof ISchedule = 'monday';
 
   lat = 40.741301;
   lng = -74.175739;

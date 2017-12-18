@@ -123,12 +123,32 @@ describe('runwcm App', () => {
     await expect(AppData.available()).toBeTruthy();
   });
 
-  xit('should display results for each day of the week', async () => {
-    // enter valid data
+  it('should display results for each day of the week', async () => {
+    await AppPage.navigateTo();
 
-    // submit
+    // enter valid data
+    await AppFields.webreg.edit(validWebregData);
+
+    await AppFields.form.submit();
 
     // confirm that for each day of the week, the correct day is displayed and
     // the corresponding buildings are listed in order
+
+    // by default, Monday is selected and we should expect to find English Comp at CON-453
+    const mondaySchedule = ['ENGLISH COMPOSITION CON-453', 'INTRO TO SOCIOLOGY HIL-107'];
+    const thursdaySchedule = [
+      'ENGLISH COMPOSITION CON-453',
+      'LINEAR ALGEBRA HAH-421',
+      'PRIN OF PSYCHOLOGY CON-100',
+      'PRIN OF PSYCHOLOGY SMT-246'
+    ];
+
+    await expect(AppData.day.get()).toEqual('MONDAY');
+    await expect(AppData.schedule()).toEqual(mondaySchedule);
+
+    // now let's check another day, Thursday
+    await AppData.day.edit('thursday');
+    await expect(AppData.day.get()).toEqual('THURSDAY');
+    await expect(AppData.schedule()).toEqual(thursdaySchedule);
   });
 });

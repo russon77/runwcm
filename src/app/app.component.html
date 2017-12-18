@@ -8,13 +8,11 @@
     <form class="mb-2" (submit)="onSubmit()">
       <div class="form-group required">
         <label class="control-label" for="webregdata">Webreg Data</label>
-        <input type="text"
-               class="form-control"
-               id="webregdata"
-               aria-describedby="webregHelp"
-               placeholder="Paste here!"
-               [formControl]="webregControl"
-               required>
+        <textarea class="form-control"
+                  id="webregdata"
+                  rows="3"
+                  [formControl]="webregControl"
+                  required></textarea>
         <small id="webregHelp" class="form-text text-muted">
           Navigate to Webreg, then select all (CTRL+A or CMD+A), then copy, and finally paste here.
         </small>
@@ -37,40 +35,43 @@
 
     <ng-container *ngIf="schedule">
       <div class="d-flex justify-content-center schedule-content">
-        <div class="btn-group" ngbRadioGroup name="radioBasic">
-          <label ngbButtonLabel class="btn-secondary">
+        <div class="btn-group" ngbRadioGroup name="radioBasic" [(ngModel)]="selectedDay" >
+          <label ngbButtonLabel class="btn-secondary schedule-monday">
             <input ngbButton type="radio" value="monday"> M
           </label>
-          <label ngbButtonLabel class="btn-secondary">
+          <label ngbButtonLabel class="btn-secondary schedule-tuesday">
             <input ngbButton type="radio" value="tuesday"> T
           </label>
-          <label ngbButtonLabel class="btn-secondary">
+          <label ngbButtonLabel class="btn-secondary schedule-wednesday">
             <input ngbButton type="radio" value="wednesday"> W
           </label>
-          <label ngbButtonLabel class="btn-secondary">
+          <label ngbButtonLabel class="btn-secondary schedule-thursday">
             <input ngbButton type="radio" value="thursday"> TH
           </label>
-          <label ngbButtonLabel class="btn-secondary">
+          <label ngbButtonLabel class="btn-secondary schedule-friday">
             <input ngbButton type="radio" value="friday"> F
           </label>
         </div>
       </div>
 
       <div class="card mt-2">
-        <div class="card-header">
-          Monday
+        <div class="card-header schedule-day">
+          {{ selectedDay | uppercase }}
         </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Vestibulum at eros</li>
+        <ul class="list-group list-group-flush schedule-data">
+          <li class="list-group-item"
+              *ngFor="let course of schedule[selectedDay]">
+            {{ course.name }} {{ course.location }}
+          </li>
+          <li class="list-group-item"
+              *ngIf="schedule[selectedDay].length === 0">
+            Nothing today :-)
+          </li>
         </ul>
       </div>
     </ng-container>
   </div>
   <div class="col-8">
-    <!-- this creates a google map on the page with the given lat/lng from -->
-    <!-- the component as the initial center of the map: -->
     <agm-map [latitude]="lat" [longitude]="lng">
       <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
     </agm-map>
