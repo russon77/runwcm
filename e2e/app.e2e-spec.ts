@@ -135,12 +135,12 @@ describe('runwcm App', () => {
     // the corresponding buildings are listed in order
 
     // by default, Monday is selected and we should expect to find English Comp at CON-453
-    const mondaySchedule = ['ENGLISH COMPOSITION - CONKLIN HALL', 'INTRO TO SOCIOLOGY - HILL HALL'];
+    const mondaySchedule = ['ENGLISH COMPOSITION @ CONKLIN HALL', 'INTRO TO SOCIOLOGY @ HILL HALL'];
     const thursdaySchedule = [
-      'ENGLISH COMPOSITION - CONKLIN HALL',
-      'LINEAR ALGEBRA - HAHNE & CO. BUILDING',
-      'PRIN OF PSYCHOLOGY - CONKLIN HALL',
-      'PRIN OF PSYCHOLOGY - SMITH HALL'
+      'ENGLISH COMPOSITION @ CONKLIN HALL',
+      'LINEAR ALGEBRA @ HAHNE & CO. BUILDING',
+      'PRIN OF PSYCHOLOGY @ CONKLIN HALL',
+      'PRIN OF PSYCHOLOGY @ SMITH HALL'
     ];
 
     await expect(AppData.day.get()).toEqual('MONDAY');

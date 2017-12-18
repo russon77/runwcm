@@ -1,4 +1,19 @@
-<div class="row no-gutters">
+<div class="jumbotron d-md-none">
+  <h1 class="display-3">RUNWCM</h1>
+  <p class="lead">
+    This is a utility for displaying your Rutgers Newark schedule on a map.
+  </p>
+  <hr class="my-4">
+  <p>
+    Unfortunately, we do not support mobile. This is because the main flow requires copying from the Webreg website -
+    a flow that is not very mobile friendly!
+  </p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="https://github.com/russon77/runwcm" role="button">Learn more</a>
+  </p>
+</div>
+
+<div class="row no-gutters d-none d-md-flex text-center">
   <div class="col-4 px-2">
     <h1 class="mb-0">
       RUNWCM
@@ -65,7 +80,7 @@
         <ul class="list-group list-group-flush schedule-data">
           <li class="list-group-item"
               *ngFor="let course of schedule[selectedDay]">
-            {{ course.name }} - {{ course.location.name | uppercase  }}
+            {{ course.name }} @ {{ course.location.name | uppercase  }}
           </li>
           <li class="list-group-item"
               *ngIf="schedule[selectedDay].length === 0">
@@ -85,7 +100,7 @@
                     [latitude]="course.location.coordinates.lat"
                     [longitude]="course.location.coordinates.lng">
           <agm-info-window [disableAutoPan]="true">
-            {{ course.name }} - {{ course.location.name | uppercase }}
+            {{ course.name }} @ {{ course.location.name | uppercase }}
           </agm-info-window>
         </agm-marker>
       </ng-container>
