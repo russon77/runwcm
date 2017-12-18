@@ -12,9 +12,14 @@ export class AppComponent {
   public hasError = false;
   public schedule: any = null;
   public selectedDay: keyof ISchedule = 'monday';
+  public isLoadingMap = true;
 
   lat = 40.741301;
   lng = -74.175739;
+
+  public onMapReady(): void {
+    this.isLoadingMap = false;
+  }
 
   public onSubmit(): boolean {
     const schedule = parseWebregData(this.webregControl.value);

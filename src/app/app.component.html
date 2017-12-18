@@ -1,6 +1,10 @@
 <div class="row no-gutters">
   <div class="col-4 px-2">
-    <h1 class="mb-0">RUNWCM</h1>
+    <h1 class="mb-0">
+      RUNWCM
+      <i class="fa fa-circle-o-notch fa-spin fa-fw"
+         *ngIf="isLoadingMap"></i>
+    </h1>
     <small class="text-muted">Rutgers Newark Class Mapper</small>
 
     <hr>
@@ -14,7 +18,7 @@
                   [formControl]="webregControl"
                   required></textarea>
         <small id="webregHelp" class="form-text text-muted">
-          Navigate to Webreg, then select all (CTRL+A or CMD+A), then copy, and finally paste here.
+          Navigate to Webreg's "Manage Registration" tab, then select all (CTRL+A or CMD+A), then copy, and finally paste here.
         </small>
       </div>
       <button type="submit"
@@ -61,7 +65,7 @@
         <ul class="list-group list-group-flush schedule-data">
           <li class="list-group-item"
               *ngFor="let course of schedule[selectedDay]">
-            {{ course.name }} {{ course.location }}
+            {{ course.name }} - {{ course.location.name | uppercase  }}
           </li>
           <li class="list-group-item"
               *ngIf="schedule[selectedDay].length === 0">
@@ -72,8 +76,19 @@
     </ng-container>
   </div>
   <div class="col-8">
-    <agm-map [latitude]="lat" [longitude]="lng">
-      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    <agm-map [latitude]="lat"
+             [longitude]="lng"
+             [zoom]="17"
+             (mapReady)="onMapReady()">
+      <ng-container *ngIf="schedule">
+        <agm-marker *ngFor="let course of schedule[selectedDay]"
+                    [latitude]="course.location.coordinates.lat"
+                    [longitude]="course.location.coordinates.lng">
+          <agm-info-window [disableAutoPan]="true">
+            {{ course.name }} - {{ course.location.name | uppercase }}
+          </agm-info-window>
+        </agm-marker>
+      </ng-container>
     </agm-map>
   </div>
 </div>

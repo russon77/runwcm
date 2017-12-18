@@ -1,6 +1,19 @@
+import { db } from './db';
+
+interface IGeoPoint {
+  lat: number;
+  lng: number;
+}
+
+export interface ILocation {
+  name: string;
+  short: string;
+  coordinates: IGeoPoint;
+}
+
 interface ICourse {
   name: string;
-  location: string;
+  location: ILocation;
 }
 
 export interface ISchedule {
@@ -9,6 +22,25 @@ export interface ISchedule {
   wednesday: ICourse[];
   thursday: ICourse[];
   friday: ICourse[];
+}
+
+function geo(query: string): ILocation {
+  // extract the building code from the query
+  const result = /([A-Z]+)/.exec(query);
+
+  if (!result || 2 > result.length) {
+    return null;
+  }
+
+  const buildingCode = result[1];
+
+  const search = db.filter(entry => entry.short.toLowerCase() === buildingCode.toLowerCase());
+
+  if (!search || 0 === search.length) {
+    return null;
+  }
+
+  return search[0];
 }
 
 function daysToScheduleKeys(query: string): [keyof ISchedule] {
@@ -54,7 +86,7 @@ export function parseWebregData(data: string): ISchedule {
 
       // for each day, push a class onto the schedule
       for (const day of daysToScheduleKeys(days)) {
-        schedule[day].push({name, location});
+        schedule[day].push({name, location: geo(location)});
 
         valid = true;
       }
