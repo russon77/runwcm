@@ -16,7 +16,7 @@
                [formControl]="webregControl"
                required>
         <small id="webregHelp" class="form-text text-muted">
-          Navigate to Webreg, then select all (CTRL+A or CMD+A), then copy (CTRL+C or CMD+C).
+          Navigate to Webreg, then select all (CTRL+A or CMD+A), then copy, and finally paste here.
         </small>
       </div>
       <button type="submit"
@@ -28,29 +28,30 @@
 
     <ngb-alert type="danger"
                [dismissible]="true"
-               *ngIf="true">
+               (close)="onDismissError()"
+               *ngIf="hasError">
       <strong>Warning!</strong> Failed to parse.
     </ngb-alert>
 
     <hr>
 
-    <ng-container *ngIf="true">
-      <div class="d-flex justify-content-center">
+    <ng-container *ngIf="schedule">
+      <div class="d-flex justify-content-center schedule-content">
         <div class="btn-group" ngbRadioGroup name="radioBasic">
           <label ngbButtonLabel class="btn-secondary">
-            <input ngbButton type="radio" [value]="1"> M
+            <input ngbButton type="radio" value="monday"> M
           </label>
           <label ngbButtonLabel class="btn-secondary">
-            <input ngbButton type="radio" value="middle"> T
+            <input ngbButton type="radio" value="tuesday"> T
           </label>
           <label ngbButtonLabel class="btn-secondary">
-            <input ngbButton type="radio" [value]="false"> W
+            <input ngbButton type="radio" value="wednesday"> W
           </label>
           <label ngbButtonLabel class="btn-secondary">
-            <input ngbButton type="radio" [value]="false"> TH
+            <input ngbButton type="radio" value="thursday"> TH
           </label>
           <label ngbButtonLabel class="btn-secondary">
-            <input ngbButton type="radio" [value]="false"> F
+            <input ngbButton type="radio" value="friday"> F
           </label>
         </div>
       </div>
